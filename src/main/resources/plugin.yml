@@ -1,0 +1,14 @@
+name: McTemplate
+version: ${project.version}
+main: com.pustinek.mctemplate.McTemplate
+api-version: 1.13
+authors: [Pustinek]
+description: A template for minecraft plugin development
+commands:
+  mctemplate:
+    description: 'for all the commands use /McTemplate help'
+    usage: 'McTemplate has not started correctly, check the log file (or console) and correct any errors.'
+    aliases: []
+    permissions:
+      mctemplate.*:
+        description: 'Give access to all commands of McTemplate'
