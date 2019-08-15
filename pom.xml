@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <!--TODO: change groupID, artifactId-->
     <groupId>com.pustinek</groupId>
-    <artifactId>McTemplate</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>ItemFilter</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>McTemplate</name>
+    <name>ItemFilter</name>
 
-    <description>A template for minecraft plugin development</description>
+    <description>Minecraft item filter</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -62,6 +62,7 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+
     </repositories>
 
     <dependencies>

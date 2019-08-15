@@ -1,4 +1,4 @@
-package com.pustinek.mctemplate.managers;
+package com.pustinek.itemfilter.managers;
 
 public class Manager {
 

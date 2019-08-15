@@ -1,14 +1,28 @@
-name: McTemplate
+name: ItemFilter
 version: ${project.version}
-main: com.pustinek.mctemplate.McTemplate
-api-version: 1.13
+main: com.pustinek.itemfilter.ItemFilter
+api-version: 1.14
 authors: [Pustinek]
-description: A template for minecraft plugin development
+description: Minecraft item filter plugin
 commands:
-  mctemplate:
-    description: 'for all the commands use /McTemplate help'
-    usage: 'McTemplate has not started correctly, check the log file (or console) and correct any errors.'
-    aliases: []
-    permissions:
-      mctemplate.*:
-        description: 'Give access to all commands of McTemplate'
+  itemfilter:
+    description: 'for all the commands use /ItemFilter help'
+    usage: '/command'
+    aliases: [filter, if]
+  permissions:
+    itemfilter.help:
+      description: Show plugin help
+      default: false
+    itemfilter.*:
+      description: 'Give access to all commands of itemfilter'
+      default: op
+      children:
+        itemfilter.use: true
+        itemfilter.restart: true
+        itemfilter.help: true
+    itemfilter.use:
+      description: Basic usage of the plugin
+      default: false
+    itemfilter.reload:
+      description: Reload the plugin
+      default: op

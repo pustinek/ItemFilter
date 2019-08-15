@@ -1,1 +1,246 @@
-configVersion: "1.0"
+#
+# main settings
+configVersion: 1
+settings:
+  debug: false
+itemsGUI:
+  navigation:
+    enabled: true
+    backButton:
+      material: ARROW
+      name: back button
+      lore: []
+      slot: 0
+  formating:
+    will:
+      prefix: '&a'
+      lore:
+        - '&a&lWILL &7be picked up'
+        - '&7when item filter is &nenabled.'
+    willNot:
+      prefix: '&c'
+      lore:
+        - '&c&lWILL NOT &7be picked up'
+        - '&7when item filter is &nenabled.'
+categoriesGUI:
+  spacers:
+    enabled: true
+    autofill: true
+    slots: []
+    name: ' '
+    lore: []
+    material: BLACK_STAINED_GLASS_PANE
+  categories:
+    Mining:
+      enabled: true
+      material: DIAMOND_PICKAXE
+      name: Mining
+      slot: 0
+      title: Mining item filter
+      items:
+        - COAL_ORE
+        - IRON_ORE
+        - GOLD_ORE
+        - REDSTONE_ORE
+        - LAPIS_ORE
+        - DIAMOND_ORE
+        - EMERALD_ORE
+        - GRAVEL
+        - STONE
+        - COAL
+        - IRON_INGOT
+        - GOLD_INGOT
+        - REDSTONE
+        - LAPIS_LAZULI
+        - DIAMOND
+        - EMERALD
+        - FLINT
+        - COBBLESTONE
+        - COAL_BLOCK
+        - IRON_BLOCK
+        - GOLD_BLOCK
+        - REDSTONE_BLOCK
+        - LAPIS_BLOCK
+        - DIAMOND_BLOCK
+        - EMERALD_BLOCK
+        - OBSIDIAN
+        - DIRT
+        - GRANITE
+        - ANDESITE
+        - DIORITE
+        - SAND
+        - SANDSTONE
+    PvP:
+      enabled: true
+      material: DIAMOND_CHESTPLATE
+      name: PvP
+      slot: 1
+      title: PvP item filter
+      items:
+        - IRON_HELMET
+        - IRON_CHESTPLATE
+        - IRON_LEGGINGS
+        - IRON_BOOTS
+        - IRON_SWORD
+        - IRON_SHOVEL
+        - IRON_PICKAXE
+        - IRON_AXE
+        - IRON_HOE
+        - GOLDEN_HELMET
+        - GOLDEN_CHESTPLATE
+        - GOLDEN_LEGGINGS
+        - GOLDEN_BOOTS
+        - GOLDEN_SWORD
+        - GOLDEN_SHOVEL
+        - GOLDEN_PICKAXE
+        - GOLDEN_AXE
+        - GOLDEN_HOE
+        - DIAMOND_HELMET
+        - DIAMOND_CHESTPLATE
+        - DIAMOND_LEGGINGS
+        - DIAMOND_BOOTS
+        - DIAMOND_SWORD
+        - DIAMOND_SHOVEL
+        - DIAMOND_PICKAXE
+        - DIAMOND_AXE
+        - DIAMOND_HOE
+        - LEATHER_HELMET
+        - LEATHER_CHESTPLATE
+        - LEATHER_LEGGINGS
+        - LEATHER_BOOTS
+        - WOODEN_SWORD
+        - WOODEN_SHOVEL
+        - WOODEN_PICKAXE
+        - WOODEN_AXE
+        - WOODEN_HOE
+        - TRIDENT
+        - BOW
+        - CROSSBOW
+        - ARROW
+        - SHIELD
+        - ENCHANTED_GOLDEN_APPLE
+        - GOLDEN_APPLE
+        - COOKED_BEEF
+        - MUSHROOM_STEW
+    Herbalism:
+      enabled: true
+      material: DIAMOND_HOE
+      name: Herbalism
+      slot: 2
+      title: Herbalism item filter
+      items:
+        - CARROT
+        - POTATO
+        - WHEAT_SEEDS
+        - PUMPKIN_SEEDS
+        - MELON_SEEDS
+        - BEETROOT_SEEDS
+        - RED_MUSHROOM
+        - BROWN_MUSHROOM
+        - BAMBOO
+        - SWEET_BERRIES
+        - POISONOUS_POTATO
+        - WHEAT
+        - PUMPKIN
+        - MELON_SLICE
+        - BEETROOT
+        - CACTUS
+        - VINE
+        - GRASS
+        - OAK_SAPLING
+        - SPRUCE_SAPLING
+        - HAY_BLOCK
+        - BIRCH_SAPLING
+        - JUNGLE_SAPLING
+        - OAK_SAPLING
+        - ACACIA_SAPLING
+        - DARK_OAK_SAPLING
+        - DANDELION
+        - POPPY
+        - BLUE_ORCHID
+        - ALLIUM
+        - AZURE_BLUET
+        - RED_TULIP
+        - ORANGE_TULIP
+        - WHITE_TULIP
+        - PINK_TULIP
+        - OXEYE_DAISY
+        - CORNFLOWER
+        - LILY_OF_THE_VALLEY
+        - SUNFLOWER
+        - LILAC
+        - ROSE_BUSH
+        - PEONY
+        - TALL_GRASS
+        - WITHER_ROSE
+        - LILY_PAD
+    Diving:
+      enabled: true
+      material: HEART_OF_THE_SEA
+      name: Diving
+      slot: 3
+      title: Diving item filter
+      items:
+        - SEAGRASS
+        - SEA_PICKLE
+        - TUBE_CORAL
+        - TUBE_CORAL
+        - BRAIN_CORAL
+        - BUBBLE_CORAL
+        - FIRE_CORAL
+        - HORN_CORAL
+        - TUBE_CORAL_FAN
+        - TUBE_CORAL_FAN
+        - BRAIN_CORAL_FAN
+        - BUBBLE_CORAL_FAN
+        - FIRE_CORAL_FAN
+        - HORN_CORAL_FAN
+        - DEAD_BRAIN_CORAL
+        - DEAD_BUBBLE_CORAL
+        - DEAD_FIRE_CORAL
+        - DEAD_HORN_CORAL
+        - DEAD_TUBE_CORAL
+        - DEAD_TUBE_CORAL_FAN
+        - DEAD_TUBE_CORAL_FAN
+        - DEAD_BRAIN_CORAL_FAN
+        - DEAD_BUBBLE_CORAL_FAN
+        - DEAD_FIRE_CORAL_FAN
+        - DEAD_HORN_CORAL_FAN
+    Drops:
+      enabled: true
+      material: BONE
+      name: Drops
+      slot: 4
+      title: Drops item filter
+      items:
+        - BONE
+        - ARROW
+        - STRING
+        - GUNPOWDER
+        - ROTTEN_FLESH
+        - ENDER_PEARL
+        - BLAZE_ROD
+        - GHAST_TEAR
+        - GOLD_NUGGET
+        - SPIDER_EYE
+        - MAGMA_CREAM
+        - PRISMARINE_SHARD
+        - SLIME_BALL
+        - LEATHER
+        - BAMBOO
+        - FEATHER
+        - MUTTON
+        - RABBIT
+        - CHICKEN
+        - PORKCHOP
+        - SALMON
+        - BEEF
+        - COD
+        - PUFFERFISH
+        - INK_SAC
+        - TROPICAL_FISH
+        - IRON_INGOT
+        - POPPY
+        - SNOWBALL
+        - PRISMARINE_CRYSTALS
+        - EGG
