@@ -17,7 +17,7 @@ public class ConfigManager extends Manager {
     private FileConfiguration config;
 
     //Config variables
-    private String pluginMessagePrefix = "&f[&cFilter&f] `";
+    private String pluginMessagePrefix = "&f[&cFilter&f] ";
     private ArrayList<FilterCategory> filteredCategories;
     private ItemStack spacer = null;
     private Boolean debug = false;

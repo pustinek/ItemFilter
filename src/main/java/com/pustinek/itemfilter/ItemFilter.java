@@ -30,7 +30,6 @@ public final class ItemFilter extends JavaPlugin {
     private static ItemFilter instance;
 
 
-
     // Managers:
     private Set<Manager> managers = new HashSet<>();
     private static ConfigManager configManager = null;
@@ -76,6 +75,7 @@ public final class ItemFilter extends JavaPlugin {
     @Override
     public void onEnable() {
         // load logger
+
         logger = this.getLogger();
         if (configManager == null) {
             configManager = new ConfigManager(this);

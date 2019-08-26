@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
 public class InventoryListener implements Listener {
@@ -39,6 +40,12 @@ public class InventoryListener implements Listener {
         if (event.getCurrentItem() == null) {
             return;
         }
+        // Prevent user from clicking items in his own inventory (otherwise it will brake the item)
+        if (event.getClickedInventory().getType() == InventoryType.PLAYER) {
+            return;
+        }
+
+
 
         int currentPage = ((InventoryHolderGUI) inventory.getHolder()).getPageIndex();
         Player player = (Player) event.getWhoClicked();
