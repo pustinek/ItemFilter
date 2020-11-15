@@ -1,0 +1,45 @@
+name: ItemFilter
+version: ${project.version}
+main: me.pustinek.itemfilter.ItemFilterPlugin
+api-version: 1.13
+authors: [Pustinek]
+description: Minecraft item filter plugin
+commands:
+  itemfilter:
+    description: 'for all the commands use /ItemFilter help'
+    usage: '/itemfilter'
+    aliases: [filter, if]
+permissions:
+  itemfilter.help:
+    description: Show plugin help
+    default: false
+  itemfilter.*:
+    description: 'Give access to all commands of itemfilter'
+    default: op
+    children:
+      itemfilter.use: true
+      itemfilter.reload: true
+      itemfilter.reset: true
+  itemfilter.use:
+    description: Basic usage of the plugin
+    children:
+      itemfilter.add: true
+      itemfilter.remove: true
+      itemfilter.toggle: true
+      itemfilter.menu: true
+    default: false
+  itemfilter.reload:
+    description: Reload the plugin
+    default: op
+  itemfilter.add:
+    description: Add item to filter
+    default: op
+  itemfilter.remove:
+    description: Remove item from filter
+    default: op
+  itemfilter.toggle:
+    description: Toggle your filter
+    default: op
+  itemfilter.menu:
+    description: Open the item filter menu
+    default: op
