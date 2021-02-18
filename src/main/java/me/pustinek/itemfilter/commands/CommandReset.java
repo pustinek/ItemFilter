@@ -22,7 +22,7 @@ public class CommandReset extends CommandDefault {
 
     @Override
     public String getHelp(CommandSender target) {
-        if (target.hasPermission("itemfilter.use")) {
+        if (target.hasPermission("itemfilter.reset")) {
             return "help_reset";
         }
         return null;
@@ -37,7 +37,7 @@ public class CommandReset extends CommandDefault {
             return;
         }
 
-        if (!sender.hasPermission("itemfilter.use")) {
+        if (!sender.hasPermission("itemfilter.reset")) {
             ItemFilterPlugin.messageNoPrefix(sender, "no_perms");
             return;
         }

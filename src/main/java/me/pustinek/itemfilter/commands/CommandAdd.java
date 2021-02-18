@@ -28,7 +28,7 @@ public class CommandAdd extends CommandDefault {
 
     @Override
     public String getHelp(CommandSender target) {
-        if (target.hasPermission("itemfilter.use")) {
+        if (target.hasPermission("itemfilter.add")) {
             return "help_add";
         }
         return null;

@@ -50,6 +50,7 @@ itemsGUI:
         - '&7when item filter is &nenabled.'
 categoriesGUI:
   rows: 1 #How many rows should the categories GUI have (1-6)
+  title: "&7Categories"
   spacers:
     enabled: true
     autofill: true

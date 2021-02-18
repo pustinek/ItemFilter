@@ -25,6 +25,7 @@ permissions:
     children:
       itemfilter.add: true
       itemfilter.remove: true
+      itemfilter.reset: true
       itemfilter.toggle: true
       itemfilter.menu: true
     default: false
@@ -42,4 +43,7 @@ permissions:
     default: op
   itemfilter.menu:
     description: Open the item filter menu
+    default: op
+  itemfilter.reset:
+    description: Reset the item filter
     default: op

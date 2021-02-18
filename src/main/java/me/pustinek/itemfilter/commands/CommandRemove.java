@@ -43,7 +43,7 @@ public class CommandRemove extends CommandDefault {
         if (player == null) {
             return;
         }
-        if (!sender.hasPermission("itemfilter.use")) {
+        if (!sender.hasPermission("itemfilter.remove")) {
             ItemFilterPlugin.messageNoPrefix(sender, "no_perms");
             return;
         }

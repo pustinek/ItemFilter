@@ -22,7 +22,7 @@ public class CommandToggle extends CommandDefault {
 
     @Override
     public String getHelp(CommandSender target) {
-        if (target.hasPermission("itemfilter.use")) {
+        if (target.hasPermission("itemfilter.toggle")) {
             return "help_toggle";
         }
         return null;
