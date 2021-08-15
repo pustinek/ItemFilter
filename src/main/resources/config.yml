@@ -5,6 +5,9 @@ language: "EN"
 debug: false
 metrics: true
 
+
+
+
 #Ignore items that are named, have lore or are enchanted
 ignore_custom_items: true
 
@@ -50,6 +53,7 @@ itemsGUI:
         - '&7when item filter is &nenabled.'
 categoriesGUI:
   rows: 1 #How many rows should the categories GUI have (1-6)
+  title: "&#666666Categories"
   spacers:
     enabled: true
     autofill: true

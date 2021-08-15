@@ -26,7 +26,7 @@ public class CategoriesGUI implements InventoryProvider {
                 .id("myInventory")
                 .provider(new CategoriesGUI(user))
                 .size(Math.min(6, ItemFilterPlugin.getInstance().getConfigManager().getCategoriesGUIRowSize()), 9)
-                .title(ChatUtils.chatColor("Categories"))
+                .title(ChatUtils.chatColor(ItemFilterPlugin.getInstance().getConfig().getString("categoriesGUI.title", "Categories")))
                 .manager(ItemFilterPlugin.getInstance().getInventoryManager())
                 .build();
     }

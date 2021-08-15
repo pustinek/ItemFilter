@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.pustinek</groupId>
     <artifactId>ItemFilter</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>ItemFilter</name>
@@ -89,6 +89,12 @@
             <id>nlthijs48</id>
             <url>http://maven.wiefferink.me</url>
         </repository>
+
+        <!-- Interactive messenger Fork -->
+        <repository>
+            <id>pustinek-mc-messenger</id>
+            <url>https://packagecloud.io/pustinek/mc-messenger/maven2</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -97,12 +103,6 @@
             <artifactId>spigot-api</artifactId>
             <version>1.13.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>me.wiefferink</groupId>
-            <artifactId>interactivemessenger</artifactId>
-            <version>1.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>
@@ -125,6 +125,12 @@
             <groupId>com.tchristofferson</groupId>
             <artifactId>ConfigUpdater</artifactId>
             <version>1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>me.wiefferink</groupId>
+            <artifactId>interactivemessenger</artifactId>
+            <version>1.1.0</version>
         </dependency>
 
     </dependencies>

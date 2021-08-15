@@ -68,7 +68,7 @@ public final class ItemFilterPlugin extends JavaPlugin {
      * @param message The message to print
      */
     public static void debug(String message) {
-            debug(message, false);
+        debug(message, false);
     }
 
     /**
@@ -95,7 +95,7 @@ public final class ItemFilterPlugin extends JavaPlugin {
 
         if(getConfig().getBoolean("metrics", true)){
             // bStats metrics setup:
-           new Metrics(this, PLUGIN_ID);
+            new Metrics(this, PLUGIN_ID);
         }
 
 
@@ -110,12 +110,16 @@ public final class ItemFilterPlugin extends JavaPlugin {
         }
 
         new LanguageManager(
+
                 this,                                  // The plugin (used to get the languages bundled in the jar file)
                 "languages",                           // Folder where the languages are stored
                 getConfig().getString("language", "EN"),     // The language to use indicated by the plugin user
                 "EN",                                  // The default language, expected to be shipped with the plugin and should be complete, fills in gaps in the user-selected language
                 Collections.singletonList(getConfig().getString("prefix", "&7[&6ItemFilter&7] ")) // Chat prefix to use with Message#prefix(), could of course come from the config file
         );
+
+        Message.useColorsInConsole(true);
+
 
 
         // Init and load database
@@ -136,6 +140,7 @@ public final class ItemFilterPlugin extends JavaPlugin {
 
     public void myReload() {
         configManager.reload();
+        Message.useColorsInConsole(true);
         new LanguageManager(
                 this,                                  // The plugin (used to get the languages bundled in the jar file)
                 "languages",                           // Folder where the languages are stored
@@ -195,6 +200,7 @@ public final class ItemFilterPlugin extends JavaPlugin {
      * @param replacements The replacements to insert in the message
      */
     public static void messageNoPrefix(Object target, String key, Object... replacements) {
+
         Bukkit.getScheduler().runTask(getInstance(), () -> Message.fromKey(key).replacements(replacements).send(target));
 
     }
