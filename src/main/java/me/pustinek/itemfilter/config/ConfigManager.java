@@ -1,4 +1,4 @@
-package me.pustinek.itemfilter.managers;
+package me.pustinek.itemfilter.config;
 
 import com.tchristofferson.configupdater.ConfigUpdater;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import me.pustinek.itemfilter.ItemFilterPlugin;
 import me.pustinek.itemfilter.utils.FilterCategory;
 import me.pustinek.itemfilter.utils.ItemBuilder;
 import me.pustinek.itemfilter.utils.Manager;
-import me.pustinek.itemfilter.utils.NumberHelper;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,16 +23,7 @@ import java.util.Objects;
 public class ConfigManager implements Manager {
     private FileConfiguration config;
 
-    //Config variables
-    private ArrayList<FilterCategory> filteredCategories;
-    private ItemStack spacer = null;
     private Boolean debug = false;
-
-
-    private List<String> itemWillFilterLore = new ArrayList<>();
-    private String itemWillFilterNamePrefix = "";
-    private List<String> itemWillNotFilterLore = new ArrayList<>();
-    private String itemWillNotFilterNamePrefix = "";
 
     private int filterGUIRelativeBackSlot;
     private ItemStack filterGUIBackIcon;
@@ -42,8 +32,6 @@ public class ConfigManager implements Manager {
     private ItemStack nextPageIcon;
     private ItemStack previousPageIcon;
     private ItemStack filterGUISeperatorIcon;
-
-    private int categoriesGUIRowSize = 1;
 
     final ItemFilterPlugin plugin;
     public ConfigManager(ItemFilterPlugin plugin) {
@@ -90,9 +78,7 @@ public class ConfigManager implements Manager {
 
 
     private void loadConfig() {
-        if (config.contains("categoriesGUI") && config.contains("itemsGUI")) {
-            ConfigurationSection spacersCS = config.getConfigurationSection("categoriesGUI.spacers");
-            ConfigurationSection categoriesGUICS = config.getConfigurationSection("categoriesGUI");
+        if (config.contains("itemsGUI")) {
             ConfigurationSection itemsGUIFormattingCS = config.getConfigurationSection("itemsGUI.formating");
             ConfigurationSection itemsGUICS = config.getConfigurationSection("itemsGUI");
 
@@ -110,60 +96,8 @@ public class ConfigManager implements Manager {
             previousPageSlot = itemsGUICS.getInt("navigation.previous_pag.slot", 4);
             nextPageSlot = itemsGUICS.getInt("navigation.next_page.slot", 4);
             filterGUISeperatorIcon = loadIconFromConfig(Objects.requireNonNull(itemsGUICS.getConfigurationSection("navigation.seperators")), " ", Material.BLACK_STAINED_GLASS_PANE);
-
-            if (itemsGUIFormattingCS != null) {
-                itemWillFilterNamePrefix = itemsGUIFormattingCS.getString("will.prefix");
-                itemWillFilterLore = itemsGUIFormattingCS.getStringList("will.lore");
-                itemWillNotFilterNamePrefix = itemsGUIFormattingCS.getString("willNot.prefix");
-                itemWillNotFilterLore = itemsGUIFormattingCS.getStringList("willNot.lore");
-
-            } else {
-                ItemFilterPlugin.warning("itemsGUI -> formatting seems to be missing, check your config file");
-            }
-
-
-            //=== Spacer configs:
-            if (spacersCS != null) {
-                spacer = loadIconFromConfig(spacersCS, " ", Material.BLACK_STAINED_GLASS_PANE);
-            } else {
-                ItemFilterPlugin.warning("categoriesGUI -> spacers seems to be missing, check your config file");
-            }
-
-            //=== categories configs:
-            final int categoriesGUISize = categoriesGUICS.getInt("rows", 1);
-            categoriesGUIRowSize = NumberHelper.ensureRange(categoriesGUISize, 1, 5);
-
-            filteredCategories = new ArrayList<>();
-            ConfigurationSection categoriesCS = categoriesGUICS.getConfigurationSection("categories");
-            for (String categoryKey : categoriesCS.getKeys(false)) {
-                ItemFilterPlugin.debug("loading category - " + categoryKey);
-                try {
-                    ConfigurationSection categoryCS = categoriesCS.getConfigurationSection(categoryKey);
-                    if (categoryCS == null) continue;
-
-                    int slot = categoryCS.getInt("slot", 0);
-                    boolean enabled = categoryCS.getBoolean("enabled", true);
-                    String GUITitle = categoryCS.getString("title", categoryKey);
-
-                    ItemStack categoryIcon = new ItemBuilder(loadIconFromConfig(categoryCS, "N/A", Material.BARRIER)).applyAllFlags().get();
-
-                    ArrayList<Material> filterableMaterials = new ArrayList<>();
-                    for (String fi : categoriesCS.getStringList(categoryKey + ".items")) {
-                        Material material = Material.getMaterial(fi);
-                        if (material != null)
-                            filterableMaterials.add(material);
-                    }
-                    FilterCategory filterCategory = new FilterCategory(categoryKey, categoryIcon, slot, enabled, GUITitle, filterableMaterials);
-
-                    filteredCategories.add(filterCategory);
-                } catch (NullPointerException e) {
-                    e.printStackTrace();
-                    ItemFilterPlugin.debug(e.getMessage());
-                }
-
-            }
         } else {
-            ItemFilterPlugin.error("categoriesGUI or ItemsGUI section is missing, check your config file");
+            ItemFilterPlugin.error("ItemsGUI section is missing, check your config file");
         }
     }
 

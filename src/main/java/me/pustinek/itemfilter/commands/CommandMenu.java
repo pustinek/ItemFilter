@@ -2,7 +2,7 @@ package me.pustinek.itemfilter.commands;
 
 
 import me.pustinek.itemfilter.ItemFilterPlugin;
-import me.pustinek.itemfilter.gui.CategoriesGUI;
+import me.pustinek.itemfilter.gui.FilteredGUI;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ public class CommandMenu extends CommandDefault {
 
     @Override
     public String getHelp(CommandSender target) {
-        if (target.hasPermission("itemfilter.menu")) {
+        if (target.hasPermission("itemfilter.use")) {
             return "help_menu";
         }
         return null;
@@ -38,7 +38,7 @@ public class CommandMenu extends CommandDefault {
             // Command was triggered via the console,
             return;
         }
-        if (!sender.hasPermission("itemfilter.menu")) {
+        if (!sender.hasPermission("itemfilter.use")) {
             // The player (Sender) doesn't have the required permissions, notify him\
             ItemFilterPlugin.messageNoPrefix(sender, "no_perms");
             return;
@@ -46,8 +46,7 @@ public class CommandMenu extends CommandDefault {
 
 
         ItemFilterPlugin.getInstance().getUserManager().getOrCreateUser(player.getUniqueId()).thenAccept(user -> {
-            Bukkit.getScheduler().runTask(ItemFilterPlugin.getInstance(), () ->  CategoriesGUI.getSmartInventory(user).open(player));
-
+            Bukkit.getScheduler().runTask(ItemFilterPlugin.getInstance(), () ->  FilteredGUI.getSmartInventory(user).open(player));
         });
 
 

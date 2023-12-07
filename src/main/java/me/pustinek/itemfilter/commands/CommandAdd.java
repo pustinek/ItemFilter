@@ -5,11 +5,7 @@ import me.pustinek.itemfilter.ItemFilterPlugin;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.bukkit.inventory.ItemStack;
 
 /*
  * Example of implemented command
@@ -41,51 +37,22 @@ public class CommandAdd extends CommandDefault {
         if (player == null) {
             return;
         }
-        if (!sender.hasPermission("itemfilter.add")) {
+        if (!sender.hasPermission("itemfilter.use")) {
             ItemFilterPlugin.messageNoPrefix(sender, "no_perms");
             return;
         }
 
-
         plugin.getUserManager().getOrCreateUser(player.getUniqueId()).thenAccept(user -> {
+            ItemStack item = player.getInventory().getItemInMainHand();
 
-            Material material;
-
-            if(args.length > 1){
-                if(args[1].equalsIgnoreCase("hand")){
-                    material = player.getInventory().getItemInMainHand().getType();
-                }else{
-                    material = Material.getMaterial(args[1].toUpperCase());
-                }
-            }else{
-                material = player.getInventory().getItemInMainHand().getType();
-            }
-
-            if(material == null){
-                ItemFilterPlugin.message(sender, "invalid_material"," ");
-                return;
-            }else if(material == Material.AIR){
-                ItemFilterPlugin.message(sender, "invalid_material", " ");
+            if(item.getType() == Material.AIR) {
+                ItemFilterPlugin.message(sender, "invalid_material");
                 return;
             }
 
-            user.addMaterial(material);
-            ItemFilterPlugin.message(sender, "filter_add", material.name());
+            user.addItem(item);
+            ItemFilterPlugin.message(sender, "filter_add", item.getItemMeta().getDisplayName());
         });
-
-
     }
 
-    @Override
-    public List<String> getTabCompleteList(int toComplete, String[] start, CommandSender sender) {
-        List<String> result = new ArrayList<>();
-
-        if (!(sender instanceof Player)) {
-            return result;
-        }
-
-        result.addAll(Arrays.stream(Material.values()).map(Enum::name).collect(Collectors.toList()));
-
-        return result;
-    }
 }

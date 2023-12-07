@@ -2,14 +2,15 @@ package me.pustinek.itemfilter.database;
 
 import me.pustinek.itemfilter.ItemFilterPlugin;
 import me.pustinek.itemfilter.users.User;
+import me.pustinek.itemfilter.utils.BukkitSerialization;
 import me.pustinek.itemfilter.utils.Manager;
-import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,7 +18,7 @@ public class Database implements Manager {
 
 
     final String dbFileName = "data";
-    final String tableUsers = "users";
+    final String tablePlayers = "players";
     final ItemFilterPlugin plugin;
     public Database(ItemFilterPlugin plugin) {
         this.plugin = plugin;
@@ -51,7 +52,7 @@ public class Database implements Manager {
 
         try (
                 Connection connection = getSQLConnection();
-                PreparedStatement ps = connection.prepareStatement("SELECT * FROM " + tableUsers + " WHERE uuid = 1")
+                PreparedStatement ps = connection.prepareStatement("SELECT * FROM " + tablePlayers + " WHERE uuid = 1")
         ) {
             ps.executeQuery();
             ItemFilterPlugin.debug("Successfully made a connection with database");
@@ -75,7 +76,7 @@ public class Database implements Manager {
 
     public CompletableFuture<User> getUser(UUID playerUUID) {
 
-        String query = "SELECT * FROM " + tableUsers + " WHERE uuid=?";
+        String query = "SELECT * FROM " + tablePlayers + " WHERE uuid=?";
         try (
                 Connection con = getSQLConnection();
                 PreparedStatement ps = con.prepareStatement(query)
@@ -87,17 +88,20 @@ public class Database implements Manager {
             boolean next = rs.next();
             if (next) {
                 boolean enabled = rs.getBoolean("enabled");
-                String materialsAsString = rs.getString("materials");
-                Set<Material> filteredMaterials = new HashSet<>();
+                String itemsAsString = rs.getString("items");
 
-                for (String fi : materialsAsString.split(",")) {
-                    Material material = Material.getMaterial(fi);
-                    if (material != null)
-                        filteredMaterials.add(material);
+
+                ItemStack[] itemStacks;
+                try {
+                    itemStacks = BukkitSerialization.itemStackArrayFromBase64(itemsAsString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return CompletableFuture.supplyAsync(() -> null);
                 }
+                // itemstacks to arraylist
+                ArrayList<ItemStack> itemStackList = new ArrayList<>(Arrays.asList(itemStacks));
 
-                User user = new User(playerUUID, enabled, filteredMaterials);
-
+                User user = new User(playerUUID, enabled, itemStackList);
                 return CompletableFuture.supplyAsync(() -> user);
             }
 
@@ -110,7 +114,7 @@ public class Database implements Manager {
     }
 
     public boolean saveUser(User user) {
-        String query = "INSERT OR REPLACE INTO " + tableUsers + " (uuid, enabled, materials) VALUES(?,?,?)";
+        String query = "INSERT OR REPLACE INTO " + tablePlayers + " (uuid, enabled, items) VALUES(?,?,?)";
 
         try (
                 Connection con = getSQLConnection();
@@ -118,7 +122,7 @@ public class Database implements Manager {
         ) {
             ps.setString(1, user.getUuid().toString());
             ps.setBoolean(2, user.isEnabled());
-            ps.setString(3, user.materialsToString());
+            ps.setString(3, BukkitSerialization.itemStackArrayToBase64(user.getItems().toArray(new ItemStack[0])));
             int i = ps.executeUpdate();
             return i > 0;
         } catch (SQLException ex) {
@@ -129,10 +133,10 @@ public class Database implements Manager {
 
 
     private String getQueryData() {
-        return "CREATE TABLE IF NOT EXISTS " + tableUsers + " ("
+        return "CREATE TABLE IF NOT EXISTS " + tablePlayers + " ("
                 + "uuid VARCHAR(36) PRIMARY KEY NOT NULL,"
                 + "enabled INTEGER NOT NULL,"
-                + "materials TEXT NOT NULL)";
+                + "items TEXT NOT NULL)";
     }
 
     @Override

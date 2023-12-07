@@ -2,10 +2,10 @@ package me.pustinek.itemfilter.users;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Material;
+import me.pustinek.itemfilter.ItemFilterPlugin;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.UUID;
 
 @Getter
@@ -13,37 +13,58 @@ public class User {
 
     private final UUID uuid;
     private boolean enabled;
-    private Set<Material> materials;
+    private final ArrayList<ItemStack> items;
     @Setter
     private boolean dirty = false;
 
-    public User(final UUID uuid, boolean enabled, Set<Material> materials) {
+    public User(final UUID uuid, boolean enabled, ArrayList<ItemStack> items) {
         this.uuid = uuid;
         this.enabled = enabled;
-        this.materials = materials;
+        this.items = items;
     }
 
 
-    public void toggleMaterial(Material material) {
-        if (materials.contains(material)) {
-            removeMaterial(material);
-        } else {
-            addMaterial(material);
+    public boolean hasItem(ItemStack item) {
+        for (ItemStack i : items) {
+            // Check if type is in configs
+
+            if (i.isSimilar(item)) {
+                return true;
+            }
+
+            if(i.getType() == item.getType()){
+                return ItemFilterPlugin.getInstance()
+                        .getConfig()
+                        .getStringList("filter_only_by_material")
+                        .stream()
+                        .anyMatch(s -> s.equalsIgnoreCase(i.getType().toString()));
+            }
+
         }
+        return false;
     }
 
-    public void addMaterial(Material material) {
-        materials.add(material);
+
+
+    public void addItem(ItemStack item) {
+        if(hasItem(item)) return;
+        ItemStack clone = item.clone();
+        clone.setAmount(1);
+        items.add(clone);
         setDirty(true);
     }
 
-    public void removeMaterial(Material material) {
-        materials.remove(material);
+
+
+
+    public void removeItem(ItemStack itemStack) {
+        items.removeIf(item -> item.isSimilar(itemStack));
+        // Remove item from arraylist
         setDirty(true);
     }
 
-    public void resetMaterials() {
-        materials = new HashSet<>();
+    public void resetItems() {
+        items.clear();
         setDirty(true);
     }
 
@@ -53,12 +74,8 @@ public class User {
     }
 
 
-    public String materialsToString() {
-        StringBuilder builder = new StringBuilder();
-        for (Material material : materials) {
-            builder.append(material.name()).append(",");
-        }
-        return builder.toString();
+    public String itemsToString() {
+        //TODO: parse items to string
+        return "";
     }
-
 }

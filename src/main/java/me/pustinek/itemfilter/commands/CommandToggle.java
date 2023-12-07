@@ -35,7 +35,7 @@ public class CommandToggle extends CommandDefault {
         if (player == null) {
             return;
         }
-        if (!sender.hasPermission("itemfilter.toggle")) {
+        if (!sender.hasPermission("itemfilter.use")) {
             ItemFilterPlugin.messageNoPrefix(sender, "no_perms");
             return;
         }

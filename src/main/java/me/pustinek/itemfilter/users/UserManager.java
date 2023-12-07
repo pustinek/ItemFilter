@@ -1,4 +1,4 @@
-package me.pustinek.itemfilter.managers;
+package me.pustinek.itemfilter.users;
 
 import me.pustinek.itemfilter.ItemFilterPlugin;
 import me.pustinek.itemfilter.users.User;
@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -80,7 +80,7 @@ public class UserManager implements Manager {
 
     public User createUser(UUID playerUUID) {
         ItemFilterPlugin.debug("Creating user " + playerUUID);
-        User user = new User(playerUUID, false, new HashSet<>());
+        User user = new User(playerUUID, false, new ArrayList<>());
         users.put(playerUUID, user);
         return user;
     }

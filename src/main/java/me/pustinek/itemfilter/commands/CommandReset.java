@@ -44,7 +44,7 @@ public class CommandReset extends CommandDefault {
 
 
         plugin.getUserManager().getOrCreateUser(player.getUniqueId()).thenAccept(user -> {
-            user.resetMaterials();
+            user.resetItems();
             ItemFilterPlugin.message(sender, "reset_success");
         });
 

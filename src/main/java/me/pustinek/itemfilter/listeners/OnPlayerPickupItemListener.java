@@ -2,7 +2,6 @@ package me.pustinek.itemfilter.listeners;
 
 import me.pustinek.itemfilter.ItemFilterPlugin;
 import me.pustinek.itemfilter.users.User;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,7 +20,8 @@ public class OnPlayerPickupItemListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onPlayerPickupItem(EntityPickupItemEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
@@ -29,19 +29,11 @@ public class OnPlayerPickupItemListener implements Listener {
 
         if (!player.hasPermission("itemfilter.use")) return;
 
-        Material material = event.getItem().getItemStack().getType();
-
         ItemStack item = event.getItem().getItemStack();
-
         Optional<User> user = plugin.getUserManager().getUser(player.getUniqueId());
         if (!user.isPresent()) return;
         if (!user.get().isEnabled()) return;
-        if (!user.get().getMaterials().contains(material)) return;
-        if(plugin.getConfig().getBoolean("ignore_custom_items", true)
-                && item.getItemMeta() != null
-                && (item.getItemMeta().hasDisplayName() || item.getItemMeta().hasLore() || item.getItemMeta().hasEnchants())
-        )
-            return;
+        if (!user.get().hasItem(item)) return;
 
         event.setCancelled(true);
     }

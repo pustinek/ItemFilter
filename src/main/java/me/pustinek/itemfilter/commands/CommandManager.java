@@ -1,4 +1,4 @@
-package me.pustinek.itemfilter.managers;
+package me.pustinek.itemfilter.commands;
 
 import me.pustinek.itemfilter.ItemFilterPlugin;
 import me.pustinek.itemfilter.commands.*;
