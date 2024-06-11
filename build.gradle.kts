@@ -8,23 +8,13 @@ plugins {
 
 repositories {
     mavenLocal()
+    mavenCentral()
+
     maven {
         url = uri("https://hub.spigotmc.org/nexus/content/groups/public/")
     }
     maven {
         url = uri("https://oss.sonatype.org/content/groups/public/")
-    }
-    maven {
-        url = uri("https://oss.sonatype.org/content/groups/public")
-    }
-    maven {
-        url = uri("https://repo.codemc.org/repository/maven-public")
-    }
-    maven {
-        url = uri("https://jitpack.io")
-    }
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
     }
 }
 
@@ -33,10 +23,8 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
     implementation("fr.minuskube.inv:smart-invs:1.2.7")
-    implementation("me.pustinek:interactivemessenger:1.2.1")
+    implementation("me.pustinek:interactivemessenger:1.2.2")
     compileOnly("org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT")
-
-
 }
 
 group = "me.pustinek"
