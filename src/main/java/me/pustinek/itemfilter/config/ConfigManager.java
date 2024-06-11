@@ -41,9 +41,9 @@ public class ConfigManager implements Manager {
         File configFile = new File(plugin.getDataFolder(), "config.yml");
 
         try {
-            ConfigUpdater.update(plugin, "config.yml", configFile, Arrays.asList("categoriesGUI.categories"));
+            ConfigUpdater.update(plugin, "config.yml", configFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            ItemFilterPlugin.error("Failed to update config file: " + e.getMessage());
         }
 
         reloadConfig();

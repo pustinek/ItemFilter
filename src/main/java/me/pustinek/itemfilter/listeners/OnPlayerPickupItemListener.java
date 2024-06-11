@@ -31,7 +31,7 @@ public class OnPlayerPickupItemListener implements Listener {
 
         ItemStack item = event.getItem().getItemStack();
         Optional<User> user = plugin.getUserManager().getUser(player.getUniqueId());
-        if (!user.isPresent()) return;
+        if (user.isEmpty()) return;
         if (!user.get().isEnabled()) return;
         if (!user.get().hasItem(item)) return;
 

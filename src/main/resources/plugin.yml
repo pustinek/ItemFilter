@@ -1,5 +1,5 @@
 name: ItemFilter
-version: ${project.version}
+version: ${version}
 main: me.pustinek.itemfilter.ItemFilterPlugin
 api-version: 1.13
 authors: [Pustinek]
